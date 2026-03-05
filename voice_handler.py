@@ -151,7 +151,8 @@ class BotAudioSink(voice_recv.AudioSink):
         if user is None:
             return
         uid = user.id
-        pcm = bytes(data) if not isinstance(data, (bytes, bytearray)) else data
+        # voice_recv passes a VoiceData object; raw PCM bytes are at .pcm
+        pcm = data.pcm if hasattr(data, "pcm") else (bytes(data) if not isinstance(data, (bytes, bytearray)) else data)
 
         with self._lock:
             self._buffers.setdefault(uid, bytearray()).extend(pcm)

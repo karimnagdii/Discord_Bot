@@ -446,7 +446,9 @@ async def create_on_speech_callback(guild: discord.Guild, vc: discord.VoiceClien
         What they said: "{text}"
 
         Respond in character. Be SHORT (max 2 sentences — this is spoken aloud).
-        NO emojis. NO markdown. Plain text only (it will be read by TTS).
+        IMPORTANT: You MUST respond in Egyptian Arabic (عربي مصري) or Franco-Arabic.
+        NO English except for common slang words like 'bro', 'cringe', 'noob'.
+        NO emojis. NO markdown. Plain text only (it will be read by TTS Arabic voice).
         Output JSON with action='chat' and response='your spoken reply'.
         """
         try:
@@ -641,7 +643,7 @@ async def join_vc(ctx):
     sink = BotAudioSink(on_speech, asyncio.get_event_loop())
     vc.listen(sink)
 
-    await speak_in_vc("I'm here. You're welcome. Don't test me.", vc)
+    await speak_in_vc("أنا هنا. ما تزعلنيش وإلا هجيب أبويا.", vc)
     await ctx.send("Fine. I joined. 😤 I'm LISTENING to everything now.")
 
 
@@ -1098,12 +1100,6 @@ async def on_voice_state_update(member, before, after):
 # ---------------------------------------------------------------------------
 
 async def main():
-    import socket
-    import aiohttp
-    # Bypass broken HF Spaces DNS by forcing Google DNS and IPv4
-    resolver = aiohttp.AsyncResolver(nameservers=["8.8.8.8", "8.8.4.4"])
-    connector = aiohttp.TCPConnector(resolver=resolver)
-    bot.http.connector = connector
     async with bot:
         await bot.start(DISCORD_TOKEN)
 
