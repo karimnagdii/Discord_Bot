@@ -1,0 +1,11 @@
+discord.py[voice]
+aiohttp
+dnspython
+python-dotenv
+groq
+Flask
+faster-whisper
+edge-tts
+pynacl
+discord-ext-voice-recv
+aiodns
